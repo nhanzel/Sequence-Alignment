@@ -18,9 +18,9 @@ def sequence_alignment_score(X, Y, gap_cost, mismatch_cost): # Needleman-Wunsch 
             else:
                 match_cost = -mismatch_cost
             
-            a[i][j] = min(a[i - 1][j - 1] + match_cost,  # Match/Mismatch
-                           a[i - 1][j] + gap_cost,        # Gap in Y
-                           a[i][j - 1] + gap_cost)        # Gap in X
+            a[i][j] = min(a[i - 1][j - 1] + match_cost,   # match/mismatch
+                           a[i - 1][j] + gap_cost,        # gap in Y
+                           a[i][j - 1] + gap_cost)        # gap in X
             
     # Traceback to find the optimal alignment
     aligned_X = []
@@ -58,7 +58,7 @@ def sequence_alignment_score(X, Y, gap_cost, mismatch_cost): # Needleman-Wunsch 
     print("Aligned X: ", ''.join(aligned_X))
     print("Aligned Y: ", ''.join(aligned_Y))
     
-    return a[m][n] # Score
+    return a[m][n] # score
 
 # Read input data
 with open('data.txt') as f:
