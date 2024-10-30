@@ -16,7 +16,7 @@ def sequence_alignment_score(X, Y, gap_cost, mismatch_cost): # Needleman-Wunsch 
             if X[i - 1] == Y[j - 1]:
                 match_cost = 0 # match
             else:
-                match_cost = -mismatch_cost
+                match_cost = mismatch_cost
             
             a[i][j] = min(a[i - 1][j - 1] + match_cost,   # match/mismatch
                            a[i - 1][j] + gap_cost,        # gap in Y
@@ -61,6 +61,7 @@ def sequence_alignment_score(X, Y, gap_cost, mismatch_cost): # Needleman-Wunsch 
     return a[m][n] # score
 
 # Read input data
+# DEBUG PATH: /Users/nathanhanzel/Developer/School/AnalysisOfAlgorithms/Sequence Alignment/nate-code/data.txt
 with open('data.txt') as f:
     f.readline() # we don't need the lengths
     gap_cost, mismatch_cost = map(int, f.readline().split())
