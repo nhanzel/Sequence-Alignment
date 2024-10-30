@@ -1,0 +1,34 @@
+#Sam Collins
+#Sequence alignment using the Needleman-Wunsch algorithm
+#Test case is hardcoded into the program
+
+def sequence_alignment(x, y, gap_cost, mismatch_cost):
+    m, n = len(x), len(y)
+    
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+    for i in range(1, m + 1):
+        dp[i][0] = i * gap_cost
+    for j in range(1, n + 1):
+        dp[0][j] = j * gap_cost
+
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if x[i - 1] == y[j - 1]:  #For a match
+                dp[i][j] = dp[i - 1][j - 1]
+            else:  #For a mismatch
+                dp[i][j] = dp[i - 1][j - 1] + mismatch_cost
+            #Consider gaps
+            dp[i][j] = min(dp[i][j], dp[i - 1][j] + gap_cost, dp[i][j - 1] + gap_cost)
+    return dp[m][n]
+
+#Test case
+lengths = (148, 123)
+gap_cost = 4
+mismatch_cost = 5
+X = "ACACATGCATCATGACTATGCATGCATGACTGACTGCATGCATGCATCCATCATGCATGCATCGATGCATGCATGACCACCTGTGTGACACATGCATGCGTGTGACATGCGAGACTCACTAGCGATGCATGCATGCATGCATGCATGC"
+Y = "ATGATCATGCATGCATGCATCACACTGTGCATCAGAGAGAGCTCTCAGCAGACCACACACACGTGTGCAGAGAGCATGCATGCATGCATGCATGCATGGTAGCTGCATGCTATGAGCATGCAG"
+
+#Calculating score
+nw_score = sequence_alignment(X, Y, gap_cost, mismatch_cost)
+print("The NW score is:", nw_score)
